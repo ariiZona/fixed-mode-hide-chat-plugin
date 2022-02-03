@@ -1,4 +1,4 @@
-package io.github.deathbeam.plugins.fixedtogglechat;
+package io.github.ariizona.plugins.fixedtogglechat;
 
 import com.google.common.collect.ImmutableSet;
 import java.util.AbstractMap;

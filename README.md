@@ -1,9 +1,9 @@
 # Fixed Mode Hide Chat plugin
 
 
-Forked from [github.com/deathbeam/example-plugin](https://github.com/deathbeam/example-plugin/tree/fixed-mode-hide-chat)
+**Forked from [github.com/deathbeam/example-plugin/tree/fixed-mode-hide-chat](https://github.com/deathbeam/example-plugin/tree/fixed-mode-hide-chat)**
 
-Add support for toggleable chat to fixed mode.
++ Added support for toggleable viewport resizing when chat is visible.
 
 ![preview1](https://user-images.githubusercontent.com/5115805/40887704-bafe3c30-674c-11e8-997c-68d85b48af98.gif)
 

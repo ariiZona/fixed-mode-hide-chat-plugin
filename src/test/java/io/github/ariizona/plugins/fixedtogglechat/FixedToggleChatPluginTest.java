@@ -1,4 +1,4 @@
-package io.github.deathbeam.plugins.fixedtogglechat;
+package io.github.ariizona.plugins.fixedtogglechat;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;

@@ -1,13 +1,15 @@
-package io.github.deathbeam.plugins.fixedtogglechat;
+package io.github.ariizona.plugins.fixedtogglechat;
 
-import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.AUTO_EXPAND_WIDGETS;
-import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.DEFAULT_VIEW_HEIGHT;
-import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.EXPANDED_VIEW_HEIGHT;
-import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.FIXED_MAIN;
-import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.TO_CONTRACT_WIDGETS;
+import static io.github.ariizona.plugins.fixedtogglechat.FixedToggleChatConstants.AUTO_EXPAND_WIDGETS;
+import static io.github.ariizona.plugins.fixedtogglechat.FixedToggleChatConstants.DEFAULT_VIEW_HEIGHT;
+import static io.github.ariizona.plugins.fixedtogglechat.FixedToggleChatConstants.EXPANDED_VIEW_HEIGHT;
+import static io.github.ariizona.plugins.fixedtogglechat.FixedToggleChatConstants.FIXED_MAIN;
+import static io.github.ariizona.plugins.fixedtogglechat.FixedToggleChatConstants.TO_CONTRACT_WIDGETS;
 import java.awt.event.KeyEvent;
 import java.util.Map;
 import javax.inject.Inject;
+
+import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.events.BeforeRender;
@@ -16,6 +18,7 @@ import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
@@ -37,6 +40,15 @@ public class FixedToggleChatPlugin extends Plugin implements KeyListener
 
 	@Inject
 	private KeyManager keyManager;
+
+	@Inject
+	private FixedToggleChatConfig config;
+
+	@Provides
+	FixedToggleChatConfig getConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(FixedToggleChatConfig.class);
+	}
 
 	private int lastMenu = 0;
 	private boolean hideChat = true;
@@ -86,7 +98,7 @@ public class FixedToggleChatPlugin extends Plugin implements KeyListener
 
 	@Subscribe
 	public void onClientTick(final ClientTick event) {
-		if (client.isResized() || !hideChat)
+		if (client.isResized())
 		{
 			return;
 		}
@@ -104,15 +116,22 @@ public class FixedToggleChatPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onBeforeRender(final BeforeRender event)
 	{
-		if (client.isResized() || !hideChat)
+		if (client.isResized())
 		{
 			return;
 		}
 
-		// Expand the view height
-		setViewSizeTo(DEFAULT_VIEW_HEIGHT, EXPANDED_VIEW_HEIGHT);
-
 		final Widget chatboxMessages = client.getWidget(WidgetInfo.CHATBOX);
+
+		//Allow viewport to go to original size if chat is visible and option is enabled
+		if (chatboxMessages != null && !chatboxMessages.isHidden() && config.resizeViewport())
+		{
+			setViewSizeTo(EXPANDED_VIEW_HEIGHT, DEFAULT_VIEW_HEIGHT);
+		} else
+		{
+			// Expand the view height
+			setViewSizeTo(DEFAULT_VIEW_HEIGHT, EXPANDED_VIEW_HEIGHT);
+		}
 
 		if (chatboxMessages != null)
 		{

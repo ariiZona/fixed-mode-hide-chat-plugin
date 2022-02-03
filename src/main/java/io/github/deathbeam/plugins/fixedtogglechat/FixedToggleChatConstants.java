@@ -1,4 +1,4 @@
-package io.github.deathbeam.plugins.fixedhidechat;
+package io.github.deathbeam.plugins.fixedtogglechat;
 
 import com.google.common.collect.ImmutableSet;
 import java.util.AbstractMap;
@@ -8,7 +8,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 
-public class FixedHideChatConstants
+public class FixedToggleChatConstants
 {
 	private static final Map.Entry<Integer, Integer>  CHATBOX_MESSAGES_DIALOG = new AbstractMap.SimpleEntry<>(
 		WidgetInfo.DIALOG_OPTION.getGroupId(),

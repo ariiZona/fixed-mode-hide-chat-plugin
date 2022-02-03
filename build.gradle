@@ -10,7 +10,7 @@ repositories {
 	mavenCentral()
 }
 
-def runeLiteVersion = '1.7.27'
+def runeLiteVersion = '1.8.10'
 
 dependencies {
 	compileOnly group: 'net.runelite', name:'client', version: runeLiteVersion
@@ -25,7 +25,7 @@ dependencies {
 	}
 }
 
-group = 'io.github.deathbeam.plugins.fixedhidechat'
+group = 'io.github.deathbeam.plugins.fixedtogglechat'
 version = '1.0'
 sourceCompatibility = '1.8'
 

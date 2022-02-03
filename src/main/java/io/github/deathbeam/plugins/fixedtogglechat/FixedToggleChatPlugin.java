@@ -1,10 +1,10 @@
-package io.github.deathbeam.plugins.fixedhidechat;
+package io.github.deathbeam.plugins.fixedtogglechat;
 
-import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.AUTO_EXPAND_WIDGETS;
-import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_HEIGHT;
-import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_HEIGHT;
-import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.FIXED_MAIN;
-import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.TO_CONTRACT_WIDGETS;
+import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.AUTO_EXPAND_WIDGETS;
+import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.DEFAULT_VIEW_HEIGHT;
+import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.EXPANDED_VIEW_HEIGHT;
+import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.FIXED_MAIN;
+import static io.github.deathbeam.plugins.fixedtogglechat.FixedToggleChatConstants.TO_CONTRACT_WIDGETS;
 import java.awt.event.KeyEvent;
 import java.util.Map;
 import javax.inject.Inject;
@@ -27,7 +27,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 	name = "Fixed Mode Toggle Chat",
 	description = "Allows to hide/show chatbox in fixed mode and size game accordingly"
 )
-public class FixedHideChatPlugin extends Plugin implements KeyListener
+public class FixedToggleChatPlugin extends Plugin implements KeyListener
 {
 	@Inject
 	private Client client;
@@ -86,7 +86,7 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 
 	@Subscribe
 	public void onClientTick(final ClientTick event) {
-		if (client.isResized())
+		if (client.isResized() || !hideChat)
 		{
 			return;
 		}
@@ -104,7 +104,7 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onBeforeRender(final BeforeRender event)
 	{
-		if (client.isResized())
+		if (client.isResized() || !hideChat)
 		{
 			return;
 		}
